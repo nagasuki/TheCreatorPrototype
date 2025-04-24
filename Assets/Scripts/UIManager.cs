@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,15 +20,23 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text popupText;
     [SerializeField] private Button okButton;
 
+    public bool IsExporting = false;
+
     private void Awake()
     {
         Instance = this;
     }
 
-    public void ShowMenu(Action onExport, Action onExit, string exitMessage)
+    public void ShowMenu(Func<IEnumerator> onExport, Action onExit, string exitMessage)
     {
+        if (IsExporting) return;
+
         resumeButton.onClick.AddListener(() => HideMenu());
-        exportButton.onClick.AddListener(() => onExport?.Invoke());
+        exportButton.onClick.AddListener(() =>
+        {
+            HideMenu();
+            StartCoroutine(onExport?.Invoke());
+        });
         exitButton.onClick.AddListener(() => onExit?.Invoke());
         exitTextButton.text = exitMessage;
         HidePopupText();
@@ -39,6 +48,8 @@ public class UIManager : MonoBehaviour
 
     public void HideMenu()
     {
+        if (IsExporting) return;
+
         resumeButton.onClick.RemoveAllListeners();
         exportButton.onClick.RemoveAllListeners();
         exitButton.onClick.RemoveAllListeners();

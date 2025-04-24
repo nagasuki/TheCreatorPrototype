@@ -61,6 +61,10 @@ public class PlayerController : NetworkBehaviour
     {
         controller = GetComponent<CharacterController>();
         videoRecorder = GetComponentInChildren<VideoRecorder>();
+
+
+
+        //var hand = GameObject.Find()
     }
 
     void Update()

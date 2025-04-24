@@ -1,7 +1,12 @@
 ﻿using Mirror;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
+
 
 public class VideoRecorder : NetworkBehaviour
 {
@@ -38,6 +43,8 @@ public class VideoRecorder : NetworkBehaviour
     private float recordTimer = 0f;
     private List<Texture2D> recordedFrames = new();
 
+    public Action<float>? OnExportProgress;
+
     public override void OnStartLocalPlayer()
     {
         mainCam = Camera.main;
@@ -71,6 +78,8 @@ public class VideoRecorder : NetworkBehaviour
     {
         if (!isLocalPlayer || !hasCamera)
             return; // 🛑 ไม่มีกล้อง → ไม่ให้ใช้งาน
+
+        if (UIManager.Instance.IsExporting) return;
 
         if (Input.GetMouseButtonDown(1)) ToggleCameraView(true);
         if (Input.GetMouseButtonUp(1)) ToggleCameraView(false);
@@ -193,81 +202,113 @@ public class VideoRecorder : NetworkBehaviour
         }
     }
 
-    public void ExportVideo()
+    public IEnumerator ExportVideo()
     {
+        UIManager.Instance.IsExporting = true;
         isRecording = false;
         isPaused = false;
 
-        UnityEngine.Debug.Log($"Exporting {recordedFrames.Count} frames...");
+        Debug.Log($"Exporting {recordedFrames.Count} frames...");
 
         if (recordedFrames.Count == 0)
         {
-            UnityEngine.Debug.LogWarning("No frames to export.");
-            return;
+            Debug.LogWarning("No frames to export.");
+            yield break;
         }
 
-        string baseFolder = System.IO.Path.Combine(System.IO.Directory.GetParent(Application.dataPath).FullName, "Videos");
+        string baseFolder = Path.Combine(Directory.GetParent(Application.dataPath)!.FullName, "Videos");
+        Directory.CreateDirectory(baseFolder);
 
-        if (!System.IO.Directory.Exists(baseFolder))
-            System.IO.Directory.CreateDirectory(baseFolder);
+        string folderName = $"record_{DateTime.Now:yyyyMMdd_HHmmss}";
+        string recordPath = Path.Combine(baseFolder, folderName);
+        Directory.CreateDirectory(recordPath);
 
-        string folderName = $"record_{System.DateTime.Now:yyyyMMdd_HHmmss}";
-        string recordPath = System.IO.Path.Combine(baseFolder, folderName);
-        System.IO.Directory.CreateDirectory(recordPath);
-
-        // Save PNG frames
+        // ⏳ Export PNG one by one (yield each frame)
         for (int i = 0; i < recordedFrames.Count; i++)
         {
             Texture2D frame = recordedFrames[i];
             byte[] bytes = frame.EncodeToPNG();
-            string filename = System.IO.Path.Combine(recordPath, $"frame_{i:D4}.png");
-            System.IO.File.WriteAllBytes(filename, bytes);
+            string filename = Path.Combine(recordPath, $"frame_{i:D4}.png");
+            File.WriteAllBytes(filename, bytes);
+
+            float progress = (i + 1f) / recordedFrames.Count;
+            OnExportProgress?.Invoke(progress);
+
+            yield return null; // wait 1 frame
         }
 
-        UnityEngine.Debug.Log($"✅ Exported {recordedFrames.Count} frames to: {recordPath}");
+        Debug.Log($"✅ Exported {recordedFrames.Count} PNGs to: {recordPath}");
 
-        // 👉 Call FFmpeg
-        string ffmpegPath;
-
+        // ▶️ Run FFmpeg (still blocking, run in background)
+        string ffmpegPath =
 #if UNITY_EDITOR
-        // Editor ใช้จาก path ด้านบน project
-        ffmpegPath = System.IO.Path.Combine(Application.dataPath, "../ffmpeg.exe");
+            Path.Combine(Application.dataPath, "../ffmpeg.exe");
 #else
-// Build ใช้จาก StreamingAssets
-ffmpegPath = System.IO.Path.Combine(Application.streamingAssetsPath, "ffmpeg", "ffmpeg.exe");
+        Path.Combine(Application.streamingAssetsPath, "ffmpeg", "ffmpeg.exe");
 #endif
-        string outputFile = System.IO.Path.Combine(recordPath, "video.mp4");
 
+        string outputFile = Path.Combine(recordPath, "video.mp4");
         string args = $"-framerate {frameRate} -i frame_%04d.png -c:v libx264 -pix_fmt yuv420p \"{outputFile}\"";
 
-        ProcessStartInfo startInfo = new ProcessStartInfo
+        // ✅ Run FFmpeg in background, but wait in coroutine
+        bool done = false;
+        bool success = false;
+        string ffmpegOutput = "";
+
+        System.Threading.ThreadPool.QueueUserWorkItem(_ =>
         {
-            FileName = ffmpegPath,
-            Arguments = args,
-            WorkingDirectory = recordPath,
-            CreateNoWindow = true,
-            UseShellExecute = false,
-            RedirectStandardOutput = true,
-            RedirectStandardError = true
-        };
+            try
+            {
+                ProcessStartInfo startInfo = new ProcessStartInfo
+                {
+                    FileName = ffmpegPath,
+                    Arguments = args,
+                    WorkingDirectory = recordPath,
+                    CreateNoWindow = true,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true
+                };
 
-        Process process = new Process { StartInfo = startInfo };
-        process.Start();
+                Process process = new Process { StartInfo = startInfo };
+                process.Start();
 
-        string output = process.StandardError.ReadToEnd();
-        process.WaitForExit();
+                ffmpegOutput = process.StandardError.ReadToEnd();
+                process.WaitForExit();
 
-        if (System.IO.File.Exists(outputFile))
+                success = File.Exists(outputFile);
+            }
+            catch (Exception e)
+            {
+                ffmpegOutput = e.Message;
+                success = false;
+            }
+            finally
+            {
+                done = true;
+            }
+        });
+
+        // รอ FFmpeg จนเสร็จ
+        while (!done)
         {
-            UnityEngine.Debug.Log($"🎬 Video exported to: {outputFile}");
-            UIManager.Instance.ShowPopupText($"🎬 Video exported to: {outputFile}");
-            recordedFrames.Clear();
+            yield return null;
+        }
+
+        if (success)
+        {
+            Debug.Log($"🎬 Video exported to: {outputFile}");
+            UIManager.Instance?.ShowPopupText($"🎬 Exported: {outputFile}");
         }
         else
         {
-            UnityEngine.Debug.LogError($"❌ FFmpeg failed: {output}");
-            UIManager.Instance.ShowPopupText($"❌ FFmpeg failed: {output}");
+            Debug.LogError($"❌ FFmpeg failed: {ffmpegOutput}");
+            UIManager.Instance?.ShowPopupText($"❌ FFmpeg failed");
         }
+
+        recordedFrames.Clear();
+        OnExportProgress?.Invoke(1f);
+        UIManager.Instance.IsExporting = true;
     }
 
 }
