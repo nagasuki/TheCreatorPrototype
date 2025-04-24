@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: c56d9c8f52ae407ba56921b8f513eef7
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 198411
+  packageName: Party Monster Rumble PBR
+  packageVersion: 1.0
+  assetPath: Assets/PartyMonsterRumblePBR/Shader/PBRMaskTint.shader
+  uploadId: 574573

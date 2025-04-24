@@ -17,17 +17,42 @@ public class PlayerController : NetworkBehaviour
     private bool isGrounded;
     public bool IsMenuOpen = false;
 
+    [Header("Body Parts")]
+    public GameObject[] availableCharacters;
+    [SerializeField] private Transform bodyPoint;
+
     [Header("Camera")]
     [SerializeField] private Camera thirdPersonCamera;
     [SerializeField] private Camera firstPersonCamera;
 
     private CharacterController controller;
     private VideoRecorder videoRecorder;
+    [SerializeField] private NetworkAnimator netAnimator;
+    [SyncVar, SerializeField] private int bodyPrefabIndex;
+
+    [SyncVar] private bool isJumping = false;
+
+    public override void OnStartClient()
+    {
+        bodyPrefabIndex = SaveCharacterSelected.Instance.CharacterSelectedIndex;
+
+        if (netAnimator != null)
+            netAnimator.enabled = false;
+    }
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        videoRecorder = GetComponent<VideoRecorder>();
+        videoRecorder = GetComponentInChildren<VideoRecorder>();
+
+        var body = Instantiate(availableCharacters[bodyPrefabIndex], bodyPoint);
+        body.transform.localPosition = Vector3.zero;
+
+        animator = body.GetComponent<Animator>();
+        netAnimator.animator = animator;
+
+        if (netAnimator != null && !netAnimator.enabled)
+            netAnimator.enabled = true;
 
         if (!isLocalPlayer) return;
 
@@ -36,9 +61,12 @@ public class PlayerController : NetworkBehaviour
 
         if (cameraTransform == null)
         {
-            cameraTransform = Camera.main.transform;
             thirdPersonCamera = Camera.main;
+            Debug.Log($"Start Third Person Camera: {thirdPersonCamera.name} End!");
+            cameraTransform = Camera.main.transform;
         }
+
+        Debug.Log($"Start First Person Camera: {firstPersonCamera.name} End!");
     }
 
     void Update()
@@ -119,15 +147,32 @@ public class PlayerController : NetworkBehaviour
 
         controller.Move(move * moveSpeed * Time.deltaTime);
 
-        // 🟩 กระโดด
+        if (isGrounded && velocity.y < 0)
+            velocity.y = -2f;
+
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            isJumping = true;
         }
 
-        // ⬇️ แรงโน้มถ่วง
-        velocity.y += gravity * Time.deltaTime;
+        // เช็คว่า "กำลังตกหลังจากกระโดด" → จบ jump
+        if (isJumping && velocity.y < 0 && !isGrounded)
+        {
+            isJumping = false;
+        }
 
+        // apply gravity
+        velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+
+        animator.SetFloat("Speed", move.magnitude * moveSpeed, 0.1f, Time.deltaTime);
+        animator.SetBool("Jump", isJumping);
+    }
+
+    public void SetBody(int bodyPrefabIndex)
+    {
+        this.bodyPrefabIndex = bodyPrefabIndex;
+        Debug.Log($"New Index : {bodyPrefabIndex} : In Index {this.bodyPrefabIndex}");
     }
 }

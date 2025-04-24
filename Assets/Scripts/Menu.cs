@@ -14,6 +14,7 @@ public class Menu : MonoBehaviour
     void Start()
     {
         NetworkManager.singleton.onlineScene = dropdown.options[0].text;
+
         hostButton.onClick.AddListener(() => NetworkManager.singleton.StartHost());
         joinButton.onClick.AddListener(() => NetworkManager.singleton.StartClient());
         exitButton.onClick.AddListener(() => Application.Quit());
