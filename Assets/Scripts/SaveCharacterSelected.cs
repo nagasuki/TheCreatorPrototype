@@ -3,7 +3,7 @@ using UnityEngine;
 public class SaveCharacterSelected : MonoBehaviour
 {
     public static SaveCharacterSelected Instance;
-    public int CharacterSelectedIndex { get; private set; }
+    [field: SerializeField] public int CharacterSelectedIndex { get; private set; }
 
     private void Awake()
     {

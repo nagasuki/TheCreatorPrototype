@@ -196,7 +196,6 @@ MonoBehaviour:
   firstPersonCamera: {fileID: 6745373491577259632}
   netAnimator: {fileID: 131221639279777377}
   bodyPrefabIndex: 0
-  animatorIndex: 0
 --- !u!114 &7385845545624778220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -382,14 +381,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3462115259121584010}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0018905995, y: 0.7083605, z: 0.0025951562, w: 0.7058436}
-  m_LocalPosition: {x: 1.1274499, y: 0.94772947, z: 0.0009625753}
+  m_LocalRotation: {x: -0.0031765627, y: 0.0000015524868, z: 0.00048872916, w: 0.9999949}
+  m_LocalPosition: {x: 0.275, y: 1.077, z: 0.503}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1903220236628530840}
   m_Father: {fileID: 2336440992425178770}
-  m_LocalEulerAnglesHint: {x: -0.21, y: 90, z: -0.153}
+  m_LocalEulerAnglesHint: {x: -0.364, y: 0, z: 0.056}
 --- !u!1 &5604888749935507468
 GameObject:
   m_ObjectHideFlags: 0

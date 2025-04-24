@@ -28,31 +28,20 @@ public class PlayerController : NetworkBehaviour
     private CharacterController controller;
     private VideoRecorder videoRecorder;
     [SerializeField] private NetworkAnimator netAnimator;
-    [SyncVar, SerializeField] private int bodyPrefabIndex;
+    [SyncVar(hook = nameof(OnBodyPrefabChanged)), SerializeField] private int bodyPrefabIndex;
 
     [SyncVar] private bool isJumping = false;
 
-    public override void OnStartClient()
-    {
-        bodyPrefabIndex = SaveCharacterSelected.Instance.CharacterSelectedIndex;
+    private GameObject body;
 
-        if (netAnimator != null)
-            netAnimator.enabled = false;
+    void OnBodyPrefabChanged(int _, int newIndex)
+    {
+        SpawnBody(newIndex);
     }
 
-    void Start()
+    public override void OnStartClient()
     {
-        controller = GetComponent<CharacterController>();
-        videoRecorder = GetComponentInChildren<VideoRecorder>();
-
-        var body = Instantiate(availableCharacters[bodyPrefabIndex], bodyPoint);
-        body.transform.localPosition = Vector3.zero;
-
-        animator = body.GetComponent<Animator>();
-        netAnimator.animator = animator;
-
-        if (netAnimator != null && !netAnimator.enabled)
-            netAnimator.enabled = true;
+        SpawnBody(bodyPrefabIndex);
 
         if (!isLocalPlayer) return;
 
@@ -62,11 +51,16 @@ public class PlayerController : NetworkBehaviour
         if (cameraTransform == null)
         {
             thirdPersonCamera = Camera.main;
-            Debug.Log($"Start Third Person Camera: {thirdPersonCamera.name} End!");
             cameraTransform = Camera.main.transform;
         }
 
         Debug.Log($"Start First Person Camera: {firstPersonCamera.name} End!");
+    }
+
+    void Start()
+    {
+        controller = GetComponent<CharacterController>();
+        videoRecorder = GetComponentInChildren<VideoRecorder>();
     }
 
     void Update()
@@ -170,9 +164,27 @@ public class PlayerController : NetworkBehaviour
         animator.SetBool("Jump", isJumping);
     }
 
-    public void SetBody(int bodyPrefabIndex)
+    void SpawnBody(int index)
     {
-        this.bodyPrefabIndex = bodyPrefabIndex;
-        Debug.Log($"New Index : {bodyPrefabIndex} : In Index {this.bodyPrefabIndex}");
+        if (body != null)
+            Destroy(body);
+
+        Debug.Log($"Spawning body with index {index}");
+
+        body = Instantiate(availableCharacters[index], bodyPoint);
+        body.transform.localPosition = Vector3.zero;
+
+        animator = body.GetComponent<Animator>();
+
+        if (netAnimator != null)
+        {
+            netAnimator.animator = animator;
+            netAnimator.enabled = true;
+        }
+    }
+
+    public void SetBodyIndex(int index)
+    {
+        bodyPrefabIndex = index;
     }
 }

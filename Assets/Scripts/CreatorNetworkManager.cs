@@ -7,16 +7,11 @@ public class CreatorNetworkManager : NetworkManager
 
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
-        int selectedIndex = SaveCharacterSelected.Instance.CharacterSelectedIndex;
-
-        Debug.Log($"Character index: {selectedIndex}");
-
-        playerPrefab.GetComponent<PlayerController>().SetBody(selectedIndex);
+        int index = conn.authenticationData != null ? (int)conn.authenticationData : 0;
 
         Transform start = GetStartPosition();
         GameObject player = Instantiate(playerPrefab, start.position, start.rotation);
-
-        localPlayer = player;
+        player.GetComponent<PlayerController>().SetBodyIndex(index);
 
         NetworkServer.AddPlayerForConnection(conn, player);
         //base.OnServerAddPlayer(conn);
