@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerController : NetworkBehaviour
 {
     public float moveSpeed = 5f;
+    public float runSpeed = 12f;
     public Transform cameraTransform;
     public Animator animator;
 
@@ -15,6 +16,7 @@ public class PlayerController : NetworkBehaviour
 
     private Vector3 velocity;
     private bool isGrounded;
+    private bool isSprinting = false;
     public bool IsMenuOpen = false;
 
     [Header("Body Parts")]
@@ -27,6 +29,7 @@ public class PlayerController : NetworkBehaviour
 
     private CharacterController controller;
     private VideoRecorder videoRecorder;
+    private ThirdPersonCamera thirdPersonCam;
     [SerializeField] private NetworkAnimator netAnimator;
     [SyncVar(hook = nameof(OnBodyPrefabChanged)), SerializeField] private int bodyPrefabIndex;
 
@@ -60,9 +63,8 @@ public class PlayerController : NetworkBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        videoRecorder = GetComponentInChildren<VideoRecorder>();
-
-
+        videoRecorder = GetComponent<VideoRecorder>();
+        thirdPersonCam = GetComponent<ThirdPersonCamera>();
 
         //var hand = GameObject.Find()
     }
@@ -83,13 +85,15 @@ public class PlayerController : NetworkBehaviour
                 Action exitCallBack = isServer ? NetworkManager.singleton.StopHost : NetworkManager.singleton.StopClient;
                 var exitMessage = isServer ? "Stop Host" : "Stop Client";
 
-                UIManager.Instance.ShowMenu(videoRecorder.ExportVideo, exitCallBack, exitMessage);
+                UIManager.Instance.ShowMenu(videoRecorder.ExportVideo, exitCallBack, thirdPersonCam.OnSensitivityChanged, exitMessage);
             }
             else
             {
                 UIManager.Instance.HideMenu();
             }
         }
+
+        if (IsMenuOpen) return;
 
         isGrounded = controller.isGrounded;
 
@@ -141,9 +145,19 @@ public class PlayerController : NetworkBehaviour
             {
                 transform.forward = move;
             }
+
+            if (Input.GetKeyDown(KeyCode.LeftShift) && !videoRecorder.EquipCamera)
+            {
+                isSprinting = true;
+            }
+            else if (Input.GetKeyUp(KeyCode.LeftShift) && !videoRecorder.EquipCamera)
+            {
+                isSprinting = false;
+            }
         }
 
-        controller.Move(move * moveSpeed * Time.deltaTime);
+        var speed = isSprinting ? runSpeed : moveSpeed;
+        controller.Move(move * speed * Time.deltaTime);
 
         if (isGrounded && velocity.y < 0)
             velocity.y = -2f;
@@ -166,6 +180,7 @@ public class PlayerController : NetworkBehaviour
 
         animator.SetFloat("Speed", move.magnitude * moveSpeed, 0.1f, Time.deltaTime);
         animator.SetBool("Jump", isJumping);
+        animator.SetBool("Sprint", isSprinting);
     }
 
     void SpawnBody(int index)

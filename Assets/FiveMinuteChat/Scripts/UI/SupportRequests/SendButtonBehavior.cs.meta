@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 2dcdfe6e7a2ba6b44a36a5e52ab2fb4d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/FiveMinuteChat/Scripts/UI/SupportRequests/SendButtonBehavior.cs
+  uploadId: 747203

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 507eb0c62fa98dd4bbdcae34f5c3ad7e
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/FiveMinuteChat/Scenes/VoiceChatTechDemo.unity
+  uploadId: 747203

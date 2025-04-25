@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 3fea0a3ed64b1344ab8a037801bdcbd8
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/FiveMinuteChat/Scenes/UserGroups.unity
+  uploadId: 747203

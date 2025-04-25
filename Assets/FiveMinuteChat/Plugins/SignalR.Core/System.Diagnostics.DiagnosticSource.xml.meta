@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: af3dbebfec9135e42976b8b7103d875b
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/FiveMinuteChat/Plugins/SignalR.Core/System.Diagnostics.DiagnosticSource.xml
+  uploadId: 747203

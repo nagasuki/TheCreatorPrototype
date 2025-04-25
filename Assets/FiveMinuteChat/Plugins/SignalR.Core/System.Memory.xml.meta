@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: b263b5d16e97f8e40a07396d3eecd8dc
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/FiveMinuteChat/Plugins/SignalR.Core/System.Memory.xml
+  uploadId: 747203

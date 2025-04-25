@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 934f806ccf4616d47839f53980c33bd7
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/WebGLTemplates/FiveMinuteChatTemplate/TemplateData/progressLogo.Light.png
+  uploadId: 747203

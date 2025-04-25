@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 9fb81ad4773fa8c418f757bde1260a9c
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/FiveMinuteChat/Scenes/UserStatuses.unity
+  uploadId: 747203

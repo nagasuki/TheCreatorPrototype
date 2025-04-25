@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: df918a23439c100448f146f69e0b4376
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/FiveMinuteChat/Plugins/SignalR.Core/Microsoft.AspNetCore.SignalR.Common.xml
+  uploadId: 747203

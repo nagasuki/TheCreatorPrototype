@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c1cafbf393d1da642bf480ffed8cfd7e
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/FiveMinuteChat/Plugins/SignalR.Core/Microsoft.Extensions.DependencyInjection.Abstractions.xml
+  uploadId: 747203

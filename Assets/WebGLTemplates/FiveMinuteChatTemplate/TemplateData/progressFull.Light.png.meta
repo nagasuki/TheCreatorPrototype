@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 1628a24b6ca9cb542b6ed4c01fe3db9f
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/WebGLTemplates/FiveMinuteChatTemplate/TemplateData/progressFull.Light.png
+  uploadId: 747203

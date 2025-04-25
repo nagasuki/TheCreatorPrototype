@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 1ec44c2d790ca0c45963a4a4f4a0d6a1
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/FiveMinuteChat/Prefabs/ChatBubble.prefab
+  uploadId: 747203

@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: af82c2d6231443699a267ddcb3aec9d6
+timeCreated: 1621887750
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/FiveMinuteChat/Scripts/Connectors/BestHttpSignalRConnector.cs
+  uploadId: 747203

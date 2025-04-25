@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: d301d78d297c4c118a7a1ef83ce0ab3b
+timeCreated: 1704803436
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/FiveMinuteChat/Scripts/UI/SupportRequests/ToggleViewBehavior.cs
+  uploadId: 747203

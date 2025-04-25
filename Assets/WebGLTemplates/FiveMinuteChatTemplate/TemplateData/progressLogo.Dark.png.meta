@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d88a0b8f7cbc3054c8bde81148b61cbe
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/WebGLTemplates/FiveMinuteChatTemplate/TemplateData/progressLogo.Dark.png
+  uploadId: 747203

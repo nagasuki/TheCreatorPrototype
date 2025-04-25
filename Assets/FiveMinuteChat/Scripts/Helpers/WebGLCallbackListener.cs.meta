@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 7c324f835db54009af0a340dcdc70dcd
+timeCreated: 1704307017
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/FiveMinuteChat/Scripts/Helpers/WebGLCallbackListener.cs
+  uploadId: 747203

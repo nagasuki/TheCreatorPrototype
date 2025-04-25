@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 81c96313dbb3efa4ba1a9c9ecb2f2a7b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/FiveMinuteChat/Scripts/ConnectionBehaviorBaseEditor.cs
+  uploadId: 747203

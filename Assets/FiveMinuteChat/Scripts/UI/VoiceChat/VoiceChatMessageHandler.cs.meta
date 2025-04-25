@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 687d69c2d31e464ebdfcb5571793b8e6
+timeCreated: 1721248197
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/FiveMinuteChat/Scripts/UI/VoiceChat/VoiceChatMessageHandler.cs
+  uploadId: 747203

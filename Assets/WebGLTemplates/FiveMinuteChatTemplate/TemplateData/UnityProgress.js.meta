@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 5f48e8560dd1e144591f1960d9aec24a
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/WebGLTemplates/FiveMinuteChatTemplate/TemplateData/UnityProgress.js
+  uploadId: 747203

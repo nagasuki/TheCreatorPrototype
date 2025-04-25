@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 65f3ec10c4f6a8e47826489af1e10fa5
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/FiveMinuteChat/Plugins/SignalR.Core/System.IO.Pipelines.xml
+  uploadId: 747203

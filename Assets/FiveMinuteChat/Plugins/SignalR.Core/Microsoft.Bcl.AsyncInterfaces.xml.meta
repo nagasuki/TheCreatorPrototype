@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: fb5406322d4ee0645a530527f4b90df3
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/FiveMinuteChat/Plugins/SignalR.Core/Microsoft.Bcl.AsyncInterfaces.xml
+  uploadId: 747203

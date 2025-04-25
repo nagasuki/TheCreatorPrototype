@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 4b40b209b8ff44e3b124130c63027278
+timeCreated: 1721151616
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/FiveMinuteChat/Scripts/UI/VoiceChat/RtcVoiceStreamBehavior.cs
+  uploadId: 747203

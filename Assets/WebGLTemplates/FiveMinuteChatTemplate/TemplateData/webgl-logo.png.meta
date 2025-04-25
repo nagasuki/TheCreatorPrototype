@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 14cc17502a09fbe419864d31e1003c00
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/WebGLTemplates/FiveMinuteChatTemplate/TemplateData/webgl-logo.png
+  uploadId: 747203

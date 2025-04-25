@@ -14,6 +14,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button exportButton;
     [SerializeField] private Button exitButton;
     [SerializeField] private TMP_Text exitTextButton;
+    [SerializeField] private Slider mouseSensitivitySlider;
+    public Slider ExportSlider;
+    public CanvasGroup ExportBarCanvasGroup;
 
     [Header("Popup")]
     [SerializeField] private CanvasGroup popupCanvasGroup;
@@ -27,7 +30,7 @@ public class UIManager : MonoBehaviour
         Instance = this;
     }
 
-    public void ShowMenu(Func<IEnumerator> onExport, Action onExit, string exitMessage)
+    public void ShowMenu(Func<IEnumerator> onExport, Action onExit, Action<float> onMouseSensitivityChanged, string exitMessage)
     {
         if (IsExporting) return;
 
@@ -38,6 +41,7 @@ public class UIManager : MonoBehaviour
             StartCoroutine(onExport?.Invoke());
         });
         exitButton.onClick.AddListener(() => onExit?.Invoke());
+        onMouseSensitivityChanged?.Invoke(mouseSensitivitySlider.value);
         exitTextButton.text = exitMessage;
         HidePopupText();
 
@@ -48,8 +52,6 @@ public class UIManager : MonoBehaviour
 
     public void HideMenu()
     {
-        if (IsExporting) return;
-
         resumeButton.onClick.RemoveAllListeners();
         exportButton.onClick.RemoveAllListeners();
         exitButton.onClick.RemoveAllListeners();
@@ -62,7 +64,12 @@ public class UIManager : MonoBehaviour
     public void ShowPopupText(string message)
     {
         okButton.onClick.RemoveAllListeners();
-        okButton.onClick.AddListener(() => HidePopupText());
+        okButton.onClick.AddListener(() =>
+        {
+            HidePopupText();
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        });
 
         popupText.text = message;
         popupCanvasGroup.alpha = 1f;

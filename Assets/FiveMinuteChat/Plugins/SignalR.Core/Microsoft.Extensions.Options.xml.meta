@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: bd1524a2035cad446b43d73acd1818da
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/FiveMinuteChat/Plugins/SignalR.Core/Microsoft.Extensions.Options.xml
+  uploadId: 747203

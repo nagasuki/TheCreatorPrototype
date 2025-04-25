@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 52e966d94a900bb4b8d97e34affaac5d
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/FiveMinuteChat/Prefabs/UserEntry.prefab
+  uploadId: 747203

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2e5499f8ec3b1bf449e452b876762d40
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/FiveMinuteChat/Graphics/Background.mat
+  uploadId: 747203

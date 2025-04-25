@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 using Debug = UnityEngine.Debug;
 
 
@@ -15,7 +16,8 @@ public class VideoRecorder : NetworkBehaviour
     public Camera fpsCam;
     public Camera videoCam;
     public RenderTexture renderTexture;
-    private bool hasCamera = false; // ✅ เพิ่มตัวแปร
+    private bool equipCamera = false; // ✅ เพิ่มตัวแปร
+    public bool EquipCamera => equipCamera;
 
     [Header("Selfie Settings")]
     public Transform normalCamTransform;
@@ -45,8 +47,15 @@ public class VideoRecorder : NetworkBehaviour
 
     public Action<float>? OnExportProgress;
 
+    private PlayerController playerController;
+
     public override void OnStartLocalPlayer()
     {
+        playerController = GetComponent<PlayerController>();
+
+        UIManager.Instance.ExportSlider.onValueChanged.AddListener(OnExportLoadingChanged);
+        UIManager.Instance.ExportBarCanvasGroup.alpha = 0f;
+
         mainCam = Camera.main;
 
         // ✅ เฉพาะ Local Player เท่านั้นที่ใช้กล้อง FPS
@@ -63,6 +72,11 @@ public class VideoRecorder : NetworkBehaviour
         if (videoCameraObj != null) videoCameraObj.SetActive(false);
     }
 
+    private void OnDisable()
+    {
+        UIManager.Instance.ExportSlider.onValueChanged.RemoveAllListeners();
+    }
+
     public override void OnStartClient()
     {
         if (!isLocalPlayer)
@@ -76,7 +90,19 @@ public class VideoRecorder : NetworkBehaviour
 
     void Update()
     {
-        if (!isLocalPlayer || !hasCamera)
+        if (!isLocalPlayer) return;
+
+        if (Input.GetKeyDown(KeyCode.Q) && !UIManager.Instance.IsExporting)
+        {
+            equipCamera = !equipCamera;
+
+            if (equipCamera)
+                CmdEquipmentCamera();
+            else
+                CmdUnEquipmentCamera();
+        }
+
+        if (!equipCamera)
             return; // 🛑 ไม่มีกล้อง → ไม่ให้ใช้งาน
 
         if (UIManager.Instance.IsExporting) return;
@@ -126,31 +152,34 @@ public class VideoRecorder : NetworkBehaviour
         }
     }
 
-    public void PickupCamera(GameObject cameraInWorld)
-    {
-        if (!isLocalPlayer) return;
-
-        UnityEngine.Debug.Log($"[{netId}] Picked up camera!");
-
-        CmdPickupCamera(cameraInWorld);
-    }
-
     [Command]
-    void CmdPickupCamera(GameObject cameraInWorld)
+    void CmdEquipmentCamera()
     {
-        RpcPickupCamera(cameraInWorld);
+        RpcEquipmentCamera();
     }
 
     [ClientRpc]
-    void RpcPickupCamera(GameObject cameraInWorld)
+    void RpcEquipmentCamera()
     {
-        hasCamera = true;
+        equipCamera = true;
         videoCameraObj.SetActive(true);
         videoCam.enabled = true; // ปิดก่อนเข้าสู่ FPS Mode
         recImage.alpha = 0f;
+    }
 
-        // Destroy world object (optional)
-        Destroy(cameraInWorld);
+    [Command]
+    void CmdUnEquipmentCamera()
+    {
+        RpcUnEquipmentCamera();
+    }
+
+    [ClientRpc]
+    void RpcUnEquipmentCamera()
+    {
+        equipCamera = false;
+        videoCameraObj.SetActive(false);
+        videoCam.enabled = false; // ปิดก่อนเข้าสู่ FPS Mode
+        recImage.alpha = 0f;
     }
 
     void CaptureFrame()
@@ -202,9 +231,17 @@ public class VideoRecorder : NetworkBehaviour
         }
     }
 
+    private void OnExportLoadingChanged(float value)
+    {
+        OnExportProgress?.Invoke(value);
+    }
+
     public IEnumerator ExportVideo()
     {
+        UIManager.Instance.ExportBarCanvasGroup.alpha = 1f;
         UIManager.Instance.IsExporting = true;
+        playerController.IsMenuOpen = false;
+        UIManager.Instance.HideMenu();
         isRecording = false;
         isPaused = false;
 
@@ -232,7 +269,7 @@ public class VideoRecorder : NetworkBehaviour
             File.WriteAllBytes(filename, bytes);
 
             float progress = (i + 1f) / recordedFrames.Count;
-            OnExportProgress?.Invoke(progress);
+            OnExportLoadingChanged(progress);
 
             yield return null; // wait 1 frame
         }
@@ -295,6 +332,10 @@ public class VideoRecorder : NetworkBehaviour
             yield return null;
         }
 
+        LayoutRebuilder.ForceRebuildLayoutImmediate(UIManager.Instance.transform as RectTransform);
+
+        yield return new WaitForEndOfFrame();
+
         if (success)
         {
             Debug.Log($"🎬 Video exported to: {outputFile}");
@@ -307,8 +348,9 @@ public class VideoRecorder : NetworkBehaviour
         }
 
         recordedFrames.Clear();
-        OnExportProgress?.Invoke(1f);
-        UIManager.Instance.IsExporting = true;
+        OnExportLoadingChanged(1f);
+        UIManager.Instance.IsExporting = false;
+        UIManager.Instance.ExportBarCanvasGroup.alpha = 0f;
     }
 
 }

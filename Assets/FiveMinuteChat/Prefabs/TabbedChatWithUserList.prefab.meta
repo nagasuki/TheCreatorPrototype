@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 6d2353f28eac6be4dbd60ed9414c748b
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/FiveMinuteChat/Prefabs/TabbedChatWithUserList.prefab
+  uploadId: 747203

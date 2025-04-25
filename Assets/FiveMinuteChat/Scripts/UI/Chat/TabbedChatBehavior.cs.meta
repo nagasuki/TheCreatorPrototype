@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 7aad3a0c7af05e74e9d5c5bc3cc3b878
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/FiveMinuteChat/Scripts/UI/Chat/TabbedChatBehavior.cs
+  uploadId: 747203

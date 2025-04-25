@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 336e0bc8812737347928a1a998ef13e5
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/WebGLTemplates/FiveMinuteChatTemplate/TemplateData/initSignalR.js
+  uploadId: 747203

@@ -9,6 +9,9 @@ public class ThirdPersonCamera : NetworkBehaviour
     public float pitchMin = -30f;
     public float pitchMax = 60f;
 
+    [Header("Mouse Settings")]
+    public float mouseSensitivity = 1.0f; // 👈 เพิ่มตรงนี้
+
     private float yaw;
     private float pitch;
 
@@ -44,18 +47,14 @@ public class ThirdPersonCamera : NetworkBehaviour
 
         if (videoRecorder.IsInCameraView)
         {
-            // รับเมาส์
-            float mouseX = Input.GetAxis("Mouse X") * rotationSpeed;
-            float mouseY = Input.GetAxis("Mouse Y") * rotationSpeed;
+            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+            float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
             yaw += mouseX;
             pitch -= mouseY;
             pitch = Mathf.Clamp(pitch, pitchMin, pitchMax);
 
-            // หมุนหัวกล้อง (Pitch)
             cameraPivot.localRotation = Quaternion.Euler(pitch, 0f, 0f);
-
-            // หมุนตัวละคร (Yaw)
             transform.rotation = Quaternion.Euler(0f, yaw, 0f);
         }
     }
@@ -66,8 +65,8 @@ public class ThirdPersonCamera : NetworkBehaviour
 
         if (!videoRecorder.IsInCameraView)
         {
-            float mouseX = Input.GetAxis("Mouse X") * rotationSpeed;
-            float mouseY = Input.GetAxis("Mouse Y") * rotationSpeed;
+            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+            float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
             yaw += mouseX * rotationSpeed;
             pitch -= mouseY * rotationSpeed;
@@ -77,7 +76,13 @@ public class ThirdPersonCamera : NetworkBehaviour
             Vector3 desiredPosition = cameraPivot.position + rotation * offset;
 
             cam.position = desiredPosition;
-            cam.LookAt(cameraPivot.position + Vector3.up * 1f); // ปรับให้กล้องมองหัวตัวละคร
+            cam.LookAt(cameraPivot.position + Vector3.up * 1f);
         }
     }
+
+    public void OnSensitivityChanged(float value)
+    {
+        mouseSensitivity = value;
+    }
 }
+

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 7e709a4a59b082e4394d5f0510765fb4
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/WebGLTemplates/FiveMinuteChatTemplate/index.html
+  uploadId: 747203

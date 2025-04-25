@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 3ce197253d5a7744aa6a406ba5f78d01
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/WebGLTemplates/FiveMinuteChatTemplate/TemplateData/fullscreen.png
+  uploadId: 747203

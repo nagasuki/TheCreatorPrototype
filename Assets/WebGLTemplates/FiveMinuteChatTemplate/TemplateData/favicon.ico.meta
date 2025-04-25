@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 16a847ec6dab64c4b9a274fc0296e747
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/WebGLTemplates/FiveMinuteChatTemplate/TemplateData/favicon.ico
+  uploadId: 747203

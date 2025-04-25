@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: a5b5b29556d84c94a3ad44f9b627a139
+timeCreated: 1704968830
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/FiveMinuteChat/Scripts/UI/SupportRequests/ResumeButtonBehavior.cs
+  uploadId: 747203

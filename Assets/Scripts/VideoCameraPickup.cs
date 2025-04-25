@@ -16,7 +16,7 @@ public class VideoCameraPickup : NetworkBehaviour
             float dist = Vector3.Distance(other.transform.position, transform.position);
             if (dist <= pickupRange && Input.GetKeyDown(pickupKey))
             {
-                recorder.PickupCamera(this.gameObject);
+                //recorder.PickupCamera(this.gameObject);
                 other.GetComponent<PlayerController>().animator.SetLayerWeight(2, 0f);
 
                 // เรียกบน Client → ส่งไป Server → Server sync ให้ทุกคน

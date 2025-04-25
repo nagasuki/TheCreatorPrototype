@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 27727335daf74204a455770e7721d6b3
+timeCreated: 1703333100
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/FiveMinuteChat/Scripts/UI/SupportRequests/BubbleButtonBehavior.cs
+  uploadId: 747203

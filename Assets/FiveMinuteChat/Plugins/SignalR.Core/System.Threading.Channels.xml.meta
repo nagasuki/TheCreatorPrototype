@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 5bf04e167c472cf49958280da58ce569
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/FiveMinuteChat/Plugins/SignalR.Core/System.Threading.Channels.xml
+  uploadId: 747203

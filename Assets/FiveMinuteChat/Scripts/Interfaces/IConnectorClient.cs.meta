@@ -1,0 +1,10 @@
+﻿fileFormatVersion: 2
+guid: 65bba1daebb5497189b60a038c36fb62
+timeCreated: 1623763051
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/FiveMinuteChat/Scripts/Interfaces/IConnectorClient.cs
+  uploadId: 747203

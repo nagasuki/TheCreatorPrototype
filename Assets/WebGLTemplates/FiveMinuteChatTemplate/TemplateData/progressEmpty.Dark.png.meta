@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 81a68c87d7f908f43abc334ac86f211d
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/WebGLTemplates/FiveMinuteChatTemplate/TemplateData/progressEmpty.Dark.png
+  uploadId: 747203

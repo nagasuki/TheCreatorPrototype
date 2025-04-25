@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 01df9783931e42378b10fa2920d29b02
+timeCreated: 1704307133
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/FiveMinuteChat/Scripts/Connectors/SignalRCoreConnector.WebGL.cs
+  uploadId: 747203

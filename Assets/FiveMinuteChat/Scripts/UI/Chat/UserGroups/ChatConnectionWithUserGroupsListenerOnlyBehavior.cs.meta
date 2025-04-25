@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: ba74bb69806940288d46266bff65436d
+timeCreated: 1733075823
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192443
+  packageName: Five Minute Chat
+  packageVersion: 1.21.0
+  assetPath: Assets/FiveMinuteChat/Scripts/UI/Chat/UserGroups/ChatConnectionWithUserGroupsListenerOnlyBehavior.cs
+  uploadId: 747203
